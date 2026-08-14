@@ -106,8 +106,10 @@ h2{font-family:var(--russo);font-weight:400;font-size:clamp(26px,4.5vw,36px);lin
 .action.done .action-num{background:var(--grad-violet)}
 .action-t{flex:1;font-weight:800;font-size:19px;color:var(--ink)}
 .action.done .action-t{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px}
-.action-chev{flex:0 0 auto;color:var(--muted);transition:transform .25s}
-.action.open .action-chev{transform:rotate(180deg)}
+.action-toggle{flex:0 0 auto;font-family:var(--russo);font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--violet);background:var(--bg-lilac);border-radius:60px;padding:7px 14px;white-space:nowrap}
+.action-toggle::after{content:'Открыть ▾'}
+.action.open .action-toggle::after{content:'Свернуть ▴'}
+.action-head:hover .action-toggle{background:#EDE7F3}
 .action-body{display:none;padding:2px 24px 24px;border-top:1px solid var(--card-border)}
 .action.open .action-body{display:block}
 .action-body>p,.action-body>ul,.action-body>ol{margin-top:14px}
@@ -167,6 +169,9 @@ body.all-done .final .congrats{display:block}
 .rainbow-line{height:4px;background:var(--grad-line)}
 
 @media (max-width:700px){
+  .action-toggle{padding:7px 11px}
+  .action-toggle::after{content:'▾'}
+  .action.open .action-toggle::after{content:'▴'}
   .hero .wrap,.final .wrap{grid-template-columns:1fr}
   .hero-companion,.final-companion{justify-self:center;order:-1}
   section.step,.route{padding:44px 0 10px}
@@ -222,7 +227,7 @@ body.all-done .final .congrats{display:block}
   <div class="wrap">
     <div class="kicker k-lav">Начнём с главного</div>
     <h2>Откуда вы будете пользоваться ChatGPT?</h2>
-    <p class="lead">От этого зависит маршрут: часть шагов нужна только в России. Выбор можно поменять в любой момент – кнопка «Сменить маршрут» наверху.</p>
+    <p class="lead">От этого зависит маршрут: часть шагов нужна только в России. Выбор можно поменять в любой момент – кнопка «Сменить маршрут» наверху. Дальше вас ждут действия-карточки: каждая раскрывается по клику – внутри подробная инструкция со скриншотами и кнопка «Готово, дальше».</p>
     <div class="route-btns">
       <button class="route-btn" type="button" data-pick="ru">
         <span class="route-flag">🇷🇺</span>
@@ -250,7 +255,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">1</span>
           <span class="action-t">Включите VPN</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <p>Сайт ChatGPT не открывается с российских IP-адресов. Включите VPN <b>до того</b>, как открыть сайт, и не выключайте его, пока работаете с ChatGPT. Настраивается один раз – дальше можно забыть. Если VPN уже есть – используйте его и просто отметьте действие.</p>
@@ -285,8 +290,8 @@ body.all-done .final .congrats{display:block}
       <div class="action only-ru" data-id="ru-mail">
         <button class="action-head" type="button">
           <span class="action-num">2</span>
-          <span class="action-t">Заведите почту не на .ru</span>
-          <span class="action-chev">▾</span>
+          <span class="action-t">Заведите почту на Gmail</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <p>Письмо с подтверждением на Яндекс.Почту, Mail.ru или Rambler часто просто не доходит. Заведите бесплатный ящик Gmail – он же пригодится для входа в один клик через кнопку «Продолжить с Google».</p>
@@ -305,7 +310,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">3</span>
           <span class="action-t">Зарегистрируйтесь на chatgpt.com</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <ol>
@@ -367,7 +372,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">2</span>
           <span class="action-t">Оформите Plus – или пока останьтесь на Free</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <p>Решили платить – весь путь занимает пару минут:</p>
@@ -387,7 +392,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">4</span>
           <span class="action-t">Выберите способ оплаты – или пока останьтесь на Free</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <p>Российские карты в ChatGPT не работают. Два ориентира, которые уберегут от сюрпризов:</p>
@@ -440,7 +445,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">•</span>
           <span class="action-t">Установите приложение на компьютер – основное место работы</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <ul>
@@ -460,7 +465,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">•</span>
           <span class="action-t">Установите приложение на телефон – для доступа на ходу</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <p>Ориентир один: разработчик – <b>OpenAI</b>. Приложения «ChatGPT на русском», «GPT-чат-бот» и похожие – подделки сторонних авторов.</p>
@@ -486,7 +491,7 @@ body.all-done .final .congrats{display:block}
         <button class="action-head" type="button">
           <span class="action-num">✓</span>
           <span class="action-t">Проверьте себя</span>
-          <span class="action-chev">▾</span>
+          <span class="action-toggle"></span>
         </button>
         <div class="action-body">
           <ul class="check">
@@ -558,7 +563,14 @@ body.all-done .final .congrats{display:block}
       b.classList.toggle('on',b.getAttribute('data-pick')===r);
     });
     renumber();updateBar();
-    if(scroll){var s=document.getElementById('step1');if(s)s.scrollIntoView({behavior:'smooth'});}
+    if(scroll){
+      document.querySelectorAll('.action.open').forEach(function(o){o.classList.remove('open')});
+      var acts=visibleActions();
+      for(var i=0;i<acts.length;i++){
+        if(!acts[i].classList.contains('done')){acts[i].classList.add('open');break}
+      }
+      var s=document.getElementById('step1');if(s)s.scrollIntoView({behavior:'smooth'});
+    }
   }
   document.querySelectorAll('.route-btn').forEach(function(b){
     b.addEventListener('click',function(){setRoute(b.getAttribute('data-pick'),true)});
