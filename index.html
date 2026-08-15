@@ -36,7 +36,6 @@
   --nunito:'Nunito Sans',Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--nunito);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
 .wrap{max-width:880px;margin:0 auto;padding:0 24px}
 img,svg{max-width:100%}
@@ -86,10 +85,14 @@ body.no-route .route{padding-bottom:130px}
 .card-t{font-weight:800;font-size:19px;color:var(--ink)}
 
 /* ── секции ── */
-section.step{padding:56px 0 12px;scroll-margin-top:64px}
-.final{scroll-margin-top:64px}
-.action{scroll-margin-top:80px}
-body.no-route section.step,body.no-route .final,body.no-route .step-jump{display:none}
+section.step{padding:56px 0 12px;scroll-margin-top:64px;display:none}
+body[data-step="1"] #step1,body[data-step="2"] #step2,body[data-step="3"] #step3{display:block}
+.final{scroll-margin-top:64px;display:none}
+body[data-step="3"] .final{display:block}
+body.no-route section.step,body.no-route .final{display:none}
+.step-nav{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin:30px 0 10px}
+.step-nav .btn-ghost{padding:12px 22px;font-size:13px}
+.step-nav .nav-spacer{flex:1}
 .kicker{font-family:var(--russo);font-size:13px;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:10px}
 .k-rasp{color:var(--raspberry)}
 .k-gold{color:var(--bronze)}
@@ -169,12 +172,18 @@ h2{font-family:var(--russo);font-weight:400;font-size:clamp(26px,4.5vw,36px);lin
 
 /* ── блок «Возникли проблемы?» ── */
 .trouble{border-radius:18px;padding:18px 22px 20px;margin-top:16px;background:var(--bg-lilac)}
+.trouble>.card-t{font-family:var(--russo);font-weight:400;font-size:13px;letter-spacing:1.8px;text-transform:uppercase;color:var(--violet)}
+.trouble>p{color:var(--muted);margin-top:14px}
 .faq{margin-top:12px;padding-top:12px;border-top:1px solid rgba(20,16,42,0.08)}
-.faq summary{cursor:pointer;font-weight:800;color:var(--ink);list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.faq summary{cursor:pointer;font-weight:800;color:var(--ink);list-style:none;display:flex;align-items:center;gap:14px}
 .faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:'?';flex:0 0 26px;height:26px;border-radius:50%;background:var(--grad-violet);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center}
+.faq summary span{flex:1}
 .faq summary::after{content:'Открыть ▾';flex:0 0 auto;font-family:var(--russo);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--violet);background:#fff;border-radius:60px;padding:6px 12px;white-space:nowrap}
 .faq[open] summary::after{content:'Свернуть ▴'}
+.faq-body{padding-left:40px}
 .faq-body>p,.faq-body>ol,.faq-body>ul{margin-top:10px}
+@media (max-width:700px){.faq-body{padding-left:0}}
 
 /* ── плашки и карточки ── */
 .callout{border-radius:18px;padding:18px 22px;margin-top:16px;background:var(--bg-lilac)}
@@ -359,7 +368,7 @@ body[data-route="world"] .only-ru{display:none}
           <div class="trouble">
             <div class="card-t">Возникли проблемы?</div>
             <details class="faq">
-              <summary>Google требует принять код по СМС, а он не приходит</summary>
+              <summary><span>Google требует принять код по СМС, а он не приходит</span></summary>
               <div class="faq-body">
                 <p>Обычно Google просит наоборот – <b>отправить</b> СМС с вашего телефона, и с российского номера это работает (шаги 6–8 пошаговой инструкции). Но если вам предлагают именно принять код, а СМС на российский номер не приходит – выручает временный зарубежный номер, покупается прямо в момент регистрации:</p>
                 <ol>
@@ -398,13 +407,13 @@ body[data-route="world"] .only-ru{display:none}
           <div class="trouble only-ru">
             <div class="card-t">Возникли проблемы?</div>
             <details class="faq">
-              <summary>Страница не грузится или выдаёт ошибку</summary>
+              <summary><span>Страница не грузится или выдаёт ошибку</span></summary>
               <div class="faq-body">
                 <p>Смените страну сервера в VPN и откройте сайт заново в режиме инкогнито.</p>
               </div>
             </details>
             <details class="faq">
-              <summary>Запросили номер телефона</summary>
+              <summary><span>Запросили номер телефона</span></summary>
               <div class="faq-body">
                 <p>Обычно телефон не запрашивают. Если запросили – российский номер (+7) не примут. Выручает временный зарубежный номер, покупается прямо в момент регистрации (заранее не надо):</p>
                 <ol>
@@ -425,6 +434,11 @@ body[data-route="world"] .only-ru{display:none}
         </div>
       </div>
 
+    </div>
+
+    <div class="step-nav">
+      <span class="nav-spacer"></span>
+      <button class="btn-done step-go" data-step="2" type="button">Перейти к шагу 2: Оплата →</button>
     </div>
   </div>
 </section>
@@ -514,6 +528,11 @@ body[data-route="world"] .only-ru{display:none}
       </div>
 
     </div>
+
+    <div class="step-nav">
+      <button class="btn-ghost step-go" data-step="1" type="button">← Шаг 1: Регистрация</button>
+      <button class="btn-done step-go" data-step="3" type="button">Перейти к шагу 3: Установка →</button>
+    </div>
   </div>
 </section>
 
@@ -521,7 +540,7 @@ body[data-route="world"] .only-ru{display:none}
   <div class="wrap">
     <div class="kicker k-sky">Шаг 3</div>
     <h2>Установка: компьютер и телефон</h2>
-    <p class="lead">Работать удобнее всего на компьютере именно в приложении – в нём больше функций: работа с файлами, голосовой режим, быстрый вызов поверх других окон. Мобильное приложение – для оперативного доступа: спросить на ходу, надиктовать мысль, сфотографировать документ. Для курса рекомендуем иметь все три версии – приложение на компьютере, мобильное приложение и веб-версию chatgpt.com: их функционал отличается, и на практикумах мы будем обращаться к каждой.</p>
+    <p class="lead">Для курса рекомендуем иметь все три версии – приложение на компьютере, мобильное приложение и веб-версию chatgpt.com: их функционал отличается, и на практикумах мы будем обращаться к каждой.</p>
 
     <div class="actions">
 
@@ -561,7 +580,7 @@ body[data-route="world"] .only-ru{display:none}
           <div class="trouble only-ru">
             <div class="card-t">В российском магазине приложение не находится – что делать</div>
             <details class="faq">
-              <summary>iPhone – меняем регион App Store (проверенный путь, без карты)</summary>
+              <summary><span>iPhone – меняем регион App Store (проверенный путь, без карты)</span></summary>
               <div class="faq-body">
                 <p>Новый Apple ID заводить не обязательно: у своего аккаунта можно сменить страну магазина. Мы прошли этот путь сами – карта не понадобилась.</p>
                 <div class="callout">
@@ -588,7 +607,7 @@ body[data-route="world"] .only-ru{display:none}
               </div>
             </details>
             <details class="faq">
-              <summary>Вариант 2: отдельный Apple ID другого региона – если не хотите трогать основной</summary>
+              <summary><span>Вариант 2: отдельный Apple ID другого региона – если не хотите трогать основной</span></summary>
               <div class="faq-body">
                 <p>Этот путь бережнее к вашему основному аккаунту: свой Apple ID вы не трогаете вовсе, поэтому ваши подписки и покупки точно ничем не рискуют. Отдельный аккаунт нужен только чтобы скачать приложение. Минус – придётся переключаться между аккаунтами, и здесь чаще просят карту региона.</p>
                 <ol>
@@ -607,7 +626,7 @@ body[data-route="world"] .only-ru{display:none}
               </div>
             </details>
             <details class="faq">
-              <summary>Android – меняем страну в Google Play</summary>
+              <summary><span>Android – меняем страну в Google Play</span></summary>
               <div class="faq-body">
                 <p>Откройте Google Play → аватар справа сверху → «Настройки» → «Общие» → «Настройки аккаунта и устройства» → <b>«Страна и профили»</b> – и выберите другую страну. Если Play не даёт сменить страну, проще завести отдельный Google-аккаунт с включённым VPN и войти в Play с него – основной аккаунт при этом не трогаете, приложения и покупки ничем не рискуют.</p>
                 <p>Учтите: при смене страны у <b>основного</b> аккаунта баланс Google Play и подписки российского региона могут стать недоступны, российские приложения (банки, госсервисы) из зарубежного магазина не установить – поставьте всё нужное заранее. И главное: <b>Google Play разрешает менять страну не чаще одного раза в год</b>, обратно быстро не вернётесь. Для смены может понадобиться способ оплаты нового региона:</p>
@@ -618,7 +637,7 @@ body[data-route="world"] .only-ru{display:none}
               </div>
             </details>
             <details class="faq">
-              <summary>Не хочется менять регион – веб-версия как приложение</summary>
+              <summary><span>Не хочется менять регион – веб-версия как приложение</span></summary>
               <div class="faq-body">
                 <p>Откройте <a href="https://chatgpt.com" target="_blank" rel="noopener">chatgpt.com</a> в браузере телефона и выберите <b>«Добавить на экран „Домой"»</b> – сайт появится как приложение с иконкой. Но для курса лучше всё-таки установить настоящее приложение.</p>
               </div>
@@ -652,6 +671,10 @@ body[data-route="world"] .only-ru{display:none}
         </div>
       </div>
 
+    </div>
+
+    <div class="step-nav">
+      <button class="btn-ghost step-go" data-step="2" type="button">← Шаг 2: Оплата</button>
     </div>
   </div>
 </section>
@@ -760,10 +783,31 @@ body[data-route="world"] .only-ru{display:none}
   var done={};
   try{done=JSON.parse(localStorage.getItem(LS_DONE)||'{}')}catch(e){}
 
+  var LS_STEP='essence-gpt-step';
+  function routeMatches(a){
+    var r=body.getAttribute('data-route');
+    if(!r)return false;
+    if(r==='ru'&&a.classList.contains('only-world'))return false;
+    if(r==='world'&&a.classList.contains('only-ru'))return false;
+    return true;
+  }
   function visibleActions(){
-    return Array.prototype.filter.call(document.querySelectorAll('.action'),function(a){
-      return a.offsetParent!==null;
-    });
+    return Array.prototype.filter.call(document.querySelectorAll('.action'),routeMatches);
+  }
+  function setStep(n,scroll){
+    body.setAttribute('data-step',String(n));
+    localStorage.setItem(LS_STEP,String(n));
+    if(scroll){
+      document.querySelectorAll('.action.open').forEach(function(o){o.classList.remove('open')});
+      var sec=document.getElementById('step'+n);
+      if(sec){
+        var acts=visibleActions().filter(function(a){return sec.contains(a)});
+        for(var i=0;i<acts.length;i++){
+          if(!acts[i].classList.contains('done')){acts[i].classList.add('open');break}
+        }
+        window.scrollTo({top:Math.max(0,sec.offsetTop-56),behavior:'instant'});
+      }
+    }
   }
   function renumber(){
     ['s1','s2','s3'].forEach(function(){});
@@ -791,14 +835,14 @@ body[data-route="world"] .only-ru{display:none}
     });
     renumber();updateBar();
     if(scroll){
-      document.querySelectorAll('.action.open').forEach(function(o){o.classList.remove('open')});
-      var acts=visibleActions();
-      for(var i=0;i<acts.length;i++){
-        if(!acts[i].classList.contains('done')){acts[i].classList.add('open');break}
-      }
-      var s=document.getElementById('step1');if(s)s.scrollIntoView({behavior:'smooth'});
+      setStep(1,true);
+    }else{
+      setStep(parseInt(localStorage.getItem(LS_STEP))||1,false);
     }
   }
+  document.querySelectorAll('.step-go').forEach(function(b){
+    b.addEventListener('click',function(){setStep(parseInt(b.getAttribute('data-step')),true)});
+  });
   document.querySelectorAll('.route-btn').forEach(function(b){
     b.addEventListener('click',function(){setRoute(b.getAttribute('data-pick'),true)});
   });
@@ -812,7 +856,7 @@ body[data-route="world"] .only-ru{display:none}
       if(body.classList.contains('no-route')||!t){
         document.querySelector('.route').scrollIntoView({behavior:'smooth'});
       }else{
-        t.scrollIntoView({behavior:'smooth'});
+        setStep(parseInt(p.getAttribute('href').replace('#step','')),true);
       }
     });
   });
@@ -837,8 +881,19 @@ body[data-route="world"] .only-ru{display:none}
         for(var i=acts.indexOf(a)+1;i<acts.length;i++){
           if(!acts[i].classList.contains('done')){next=acts[i];break}
         }
-        if(next){next.classList.add('open');next.scrollIntoView({behavior:'smooth',block:'start'});}
-        else{document.querySelector('.final').scrollIntoView({behavior:'smooth'});}
+        if(next){
+          var sec=next.closest('section.step');
+          var cur=body.getAttribute('data-step');
+          if(sec&&sec.id.replace('step','')!==cur){
+            setStep(parseInt(sec.id.replace('step','')),true);
+          }else{
+            next.classList.add('open');
+            next.scrollIntoView({behavior:'smooth',block:'start'});
+          }
+        }else{
+          setStep(3,false);
+          document.querySelector('.final').scrollIntoView({behavior:'smooth'});
+        }
       }
     });
   });
@@ -893,11 +948,15 @@ body[data-route="world"] .only-ru{display:none}
   }
 
   document.querySelectorAll('a.cardlink').forEach(function(l){
-    l.addEventListener('click',function(){
+    l.addEventListener('click',function(e){
       var t=document.querySelector(l.getAttribute('href'));
       if(t&&t.classList.contains('action')){
+        e.preventDefault();
+        var sec=t.closest('section.step');
+        if(sec)setStep(parseInt(sec.id.replace('step','')),false);
         document.querySelectorAll('.action.open').forEach(function(o){o.classList.remove('open')});
         t.classList.add('open');
+        t.scrollIntoView({behavior:'smooth',block:'start'});
       }
     });
   });
