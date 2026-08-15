@@ -244,6 +244,32 @@ table.map td:first-child{color:var(--ink);font-weight:800}
 .lightbox[hidden]{display:none}
 .lightbox img{max-width:100%;max-height:92vh;border-radius:12px;background:#fff}
 .lightbox-hint{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--russo);font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#C8B0F0}
+
+/* ── плавное раскрытие аккордеона ── */
+.action-body{display:grid;grid-template-rows:minmax(0,0fr);opacity:0;padding:0;border-top:1px solid transparent;transition:grid-template-rows .42s cubic-bezier(.33,.1,.2,1),opacity .3s ease,border-color .3s ease}
+.action.open .action-body{display:grid;grid-template-rows:minmax(0,1fr);opacity:1;border-top-color:var(--card-border)}
+.action-inner{overflow:hidden;min-height:0;padding:2px 24px 24px}
+.action-inner>p,.action-inner>ul,.action-inner>ol{margin-top:14px}
+.action{transition:box-shadow .3s ease}
+.action-head{transition:background .2s ease}
+.action-num,.action-t{transition:color .25s ease,background .25s ease}
+
+/* ── картинки проявляются, а не выпрыгивают ── */
+.screen img{opacity:0;transition:opacity .45s ease}
+.screen img.ready{opacity:1}
+
+/* ── мягкая смена шага ── */
+@keyframes stepIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+body[data-step] section.step{animation:stepIn .38s ease both}
+
+/* ── воздух перед подвалом ── */
+.step-nav{margin:34px 0 8px}
+section.step{padding-bottom:96px}
+
+@media (prefers-reduced-motion:reduce){
+  .action-body,.screen img{transition:none}
+  section.step{animation:none}
+}
 @media (max-width:700px){
   table.map{min-width:0}
   table.map th,table.map td{padding:12px 14px}
@@ -264,7 +290,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
 <header class="hero">
   <div class="wrap">
     <div>
-            <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4794 708" role="img" aria-label="ЭССЕНС.AI">
+      <svg class="hero-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4794 708" role="img" aria-label="ЭССЕНС.AI">
         <defs>
           <linearGradient id="essenceHolo" x1="0" y1="0" x2="4794" y2="0" gradientUnits="userSpaceOnUse">
             <stop offset="0" stop-color="#58C4EF"/><stop offset="0.5" stop-color="#B49AE3"/><stop offset="1" stop-color="#F65BA3"/>
@@ -290,7 +316,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
         <a class="hm-3" href="#step3">На вырост</a>
       </div>
     </div>
-        <img class="hero-companion" src="img/s01.webp" alt="Компаньон Эссенс">
+    <img class="hero-companion" src="img/s01.webp" alt="Компаньон Эссенс">
   </div>
 </header>
 <div class="rainbow-line"></div>
@@ -309,7 +335,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Осмотрите главный экран</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Откройте ChatGPT и не спешите печатать. Всё, что нужно на старте, помещается в четыре зоны:</p>
           <ul>
             <li><b>Поле ввода в центре</b> – единственное место, где вы разговариваете с ChatGPT. Устроено как переписка в мессенджере.</li>
@@ -321,9 +347,10 @@ table.map td:first-child{color:var(--ink);font-weight:800}
             <div class="card-t">Интерфейс меняется – это нормально</div>
             <p>ChatGPT обновляется почти каждый месяц: кнопки переезжают, названия меняются, часть разделов есть в веб-версии и нет в приложении на компьютере. Не нашли кнопку там, где показано, – спросите у самого ChatGPT: «Куда нажать, чтобы …?» Про свой интерфейс он рассказывает лучше любой инструкции.</p>
           </div>
-          <div class="screen"><img loading="lazy" src="img/s02.webp" alt="Главный экран: панель слева, переключатель «Чат / Работа», поле ввода и ваше имя внизу."><div class="screen-cap">Главный экран: панель слева, переключатель «Чат / Работа», поле ввода и ваше имя внизу.</div></div>
+          <div class="screen"><img width="1200" height="586" src="img/s02.webp" alt="Главный экран: панель слева, переключатель «Чат / Работа», поле ввода и ваше имя внизу."><div class="screen-cap">Главный экран: панель слева, переключатель «Чат / Работа», поле ввода и ваше имя внизу.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -334,7 +361,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Задайте первый вопрос – пусть он сам расскажет, чем полезен</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Самый честный способ познакомиться – спросить у него про вашу же работу. Скопируйте в поле ввода:</p>
           <div class="prompt">
             <div class="card-t">Первый запрос</div>
@@ -342,9 +369,10 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           </div>
           <p>В ответ он не только перечислит возможности, но и начнёт задавать встречные вопросы: чем вы занимаетесь, что создаёте в результате работы, как выглядит ваша обычная рабочая неделя. Отвечайте своими словами – и вместо общего списка получите рекомендации под свои задачи.</p>
           <p><b>Главный сдвиг в голове:</b> это разговор, а не поисковая строка. Не нужно формулировать идеально с первого раза – уточняйте, спорьте, просите переделать. Внутри одного чата он помнит всё, что было выше.</p>
-          <div class="screen"><img loading="lazy" src="img/s03.webp" alt="Так выглядит первый диалог: ваш вопрос и ответ со встречными вопросами. Справа – панель «Файлы в чате»."><div class="screen-cap">Так выглядит первый диалог: ваш вопрос и ответ со встречными вопросами. Справа – панель «Файлы в чате».</div></div>
+          <div class="screen"><img width="1200" height="588" src="img/s03.webp" alt="Так выглядит первый диалог: ваш вопрос и ответ со встречными вопросами. Справа – панель «Файлы в чате»."><div class="screen-cap">Так выглядит первый диалог: ваш вопрос и ответ со встречными вопросами. Справа – панель «Файлы в чате».</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -355,7 +383,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Включите голосовой ввод</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <ol>
             <li>Нажмите значок <b>микрофона</b> в поле ввода.</li>
             <li>Если всплывёт окошко «Разрешить использование микрофона» – разрешайте, без этого диктовка не заработает.</li>
@@ -364,9 +392,10 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <p>Русский язык распознаётся хорошо – диктовать можно длинными фразами, со всеми подробностями.</p>
           <p><b>Зачем это нужно.</b> Голосом мы выдаём информацию в разы быстрее, чем печатаем – по разным оценкам в 4–5 раз. И, что важнее, попутно даём больше контекста: рассказать голосом проще, чем набирать. Особенно выручает, когда ChatGPT задаёт вам десяток встречных вопросов – отвечать на них голосом дело пары минут.</p>
           <p>Голосовой ввод понадобится с первых дней работы, поэтому привыкайте к нему сразу: не печатайте то, что можно проговорить.</p>
-          <div class="screen"><img loading="lazy" src="img/s04.webp" alt="Нажмите микрофон – и разрешите браузеру им пользоваться."><div class="screen-cap">Нажмите микрофон – и разрешите браузеру им пользоваться.</div></div>
+          <div class="screen"><img width="1200" height="589" src="img/s04.webp" alt="Нажмите микрофон – и разрешите браузеру им пользоваться."><div class="screen-cap">Нажмите микрофон – и разрешите браузеру им пользоваться.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -377,16 +406,17 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Выберите модель и уровень размышления</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Рядом с полем ввода прячутся два переключателя – именно они отвечают за качество ответа.</p>
           <ul>
             <li><b>Уровень размышления.</b> «Быстрее» – мгновенный ответ на простой вопрос. «Умнее» – ChatGPT думает дольше, зато справляется со сложным: анализ, длинные документы, планирование.</li>
             <li><b>Модель.</b> Это «мозги» разной мощности. Названия моделей меняются от обновления к обновлению, поэтому запоминать их бесполезно – ориентируйтесь по описанию: быстрая для простого, умная для сложного.</li>
           </ul>
           <p>На бесплатном тарифе к умной модели есть лимит – когда он закончится, ChatGPT сам переключится на базовую и предупредит об этом.</p>
-          <div class="screen"><img loading="lazy" src="img/s05.webp" alt="Уровень размышления переключается рядом с микрофоном, там же прячутся расширенные настройки."><div class="screen-cap">Уровень размышления переключается рядом с микрофоном, там же прячутся расширенные настройки.</div></div>
+          <div class="screen"><img width="1200" height="585" src="img/s05.webp" alt="Уровень размышления переключается рядом с микрофоном, там же прячутся расширенные настройки."><div class="screen-cap">Уровень размышления переключается рядом с микрофоном, там же прячутся расширенные настройки.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -397,7 +427,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Загляните под кнопку «+»</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>«Плюсик» слева в поле ввода – это всё, что можно принести в разговор кроме текста:</p>
           <ul>
             <li><b>Файлы</b> – документ, таблица, презентация, фотография, скриншот. Дальше просто спрашиваете по содержимому: «что тут главное», «что означает этот пункт».</li>
@@ -405,9 +435,10 @@ table.map td:first-child{color:var(--ink);font-weight:800}
             <li><b>Подключения</b> – календарь и другие сервисы. Это уже плагины: отдельная тема, сейчас достаточно знать, что они живут здесь.</li>
           </ul>
           <p>Всё это комбинируется в одном запросе: приложили файл, включили поиск, надиктовали задачу голосом – и отправили.</p>
-          <div class="screen"><img loading="lazy" src="img/s06.webp" alt="Меню кнопки «+»: файлы с компьютера и из библиотеки, создание картинки, поиск в сети, подключения."><div class="screen-cap">Меню кнопки «+»: файлы с компьютера и из библиотеки, создание картинки, поиск в сети, подключения.</div></div>
+          <div class="screen"><img width="1200" height="582" src="img/s06.webp" alt="Меню кнопки «+»: файлы с компьютера и из библиотеки, создание картинки, поиск в сети, подключения."><div class="screen-cap">Меню кнопки «+»: файлы с компьютера и из библиотеки, создание картинки, поиск в сети, подключения.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -435,12 +466,13 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Запомните правило: одна задача – один чат</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Внутри чата копится контекст – весь разговор целиком. Это его сила: он помнит всё, что вы обсудили выше. И его же слабость: когда информации становится слишком много, ответы портятся – ChatGPT путается, теряет нить и начинает подтупливать. Как будто память засорилась.</p>
           <p>Отсюда правило: <b>новая тема – новый чат</b>. А если рабочая тема идёт давно и чат явно перегружен – заведите новый и коротко перескажите в нём суть.</p>
           <p class="hint">Количество чатов не ограничено – экономить не нужно.</p>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -451,15 +483,16 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Создайте новый чат и найдите старый</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <ul>
             <li><b>Новый чат</b> – кнопка вверху панели слева. Нажали – чистый лист, прошлый разговор никуда не делся.</li>
             <li><b>История</b> – все разговоры сохраняются списком в той же панели. Открываете любой и продолжаете с того места, где остановились.</li>
             <li><b>Поиск</b> – значок лупы ищет по недавним чатам. Незаменим, когда список стал длинным.</li>
           </ul>
-          <div class="screen"><img loading="lazy" src="img/s07.webp" alt="Кнопка «Новый чат», лупа-поиск вверху и список всех чатов внизу панели."><div class="screen-cap">Кнопка «Новый чат», лупа-поиск вверху и список всех чатов внизу панели.</div></div>
+          <div class="screen"><img width="1200" height="578" src="img/s07.webp" alt="Кнопка «Новый чат», лупа-поиск вверху и список всех чатов внизу панели."><div class="screen-cap">Кнопка «Новый чат», лупа-поиск вверху и список всех чатов внизу панели.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -470,7 +503,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Наведите порядок: переименовать, закрепить, архивировать, поделиться</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Наведите курсор на чат в списке – рядом появится кнопка с тремя точками. Под ней всё управление:</p>
           <ul>
             <li><b>Переименовать</b> – дать понятное название вместо автоматического. Со временем у вас появится своя система названий, и поиск станет мгновенным.</li>
@@ -479,9 +512,10 @@ table.map td:first-child{color:var(--ink);font-weight:800}
             <li><b>Поделиться</b> – получить ссылку на чат, чтобы показать результат коллеге или клиенту.</li>
           </ul>
           <p class="hint">Удалить чат тоже можно, но архив надёжнее: убрать из виду легко, а восстановить удалённое – нет.</p>
-          <div class="screen"><img loading="lazy" src="img/s08.webp" alt="Три точки вверху чата: просмотр файлов, открепить, архивировать, перенести в проект."><div class="screen-cap">Три точки вверху чата: просмотр файлов, открепить, архивировать, перенести в проект.</div></div>
+          <div class="screen"><img width="1200" height="581" src="img/s08.webp" alt="Три точки вверху чата: просмотр файлов, открепить, архивировать, перенести в проект."><div class="screen-cap">Три точки вверху чата: просмотр файлов, открепить, архивировать, перенести в проект.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -492,7 +526,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Разложите чаты по проектам</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Проект – это папка для одной темы: клиент, курс, продукт, книга. Внутри живут связанные чаты и файлы, как папки на компьютере.</p>
           <ol>
             <li>Откройте <b>«Проекты»</b> в панели слева и создайте новый.</li>
@@ -501,10 +535,11 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           </ol>
           <p>В уроке это выглядит так: проект «Обучение работе с ChatGPT», внутри – несколько чатов про интерфейс. Ничего не нужно искать в общем списке.</p>
           <p>У проекта могут быть свои инструкции – постоянный контекст для всех чатов внутри. Это отдельная большая тема, к ней вернёмся.</p>
-          <div class="screen"><img loading="lazy" src="img/s09.webp" alt="Раздел «Проекты»: список папок по темам и кнопка «Создать»."><div class="screen-cap">Раздел «Проекты»: список папок по темам и кнопка «Создать».</div></div>
-          <div class="screen"><img loading="lazy" src="img/s10.webp" alt="Окно создания проекта: вводим название и нажимаем «Создать проект»."><div class="screen-cap">Окно создания проекта: вводим название и нажимаем «Создать проект».</div></div>
+          <div class="screen"><img width="1200" height="531" src="img/s09.webp" alt="Раздел «Проекты»: список папок по темам и кнопка «Создать»."><div class="screen-cap">Раздел «Проекты»: список папок по темам и кнопка «Создать».</div></div>
+          <div class="screen"><img width="1200" height="578" src="img/s10.webp" alt="Окно создания проекта: вводим название и нажимаем «Создать проект»."><div class="screen-cap">Окно создания проекта: вводим название и нажимаем «Создать проект».</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -515,16 +550,17 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Найдите созданные файлы и картинки</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Документы и изображения, которые вы загружали или создавали, не тонут в переписке:</p>
           <ul>
             <li><b>«Просмотр файлов в чате»</b> – всё, что относится к текущему разговору, листается в одном окне.</li>
             <li><b>«Библиотека»</b> в панели слева – общая лента созданных изображений по всем чатам.</li>
           </ul>
           <p class="hint">Смысл простой: не искать картинку месячной давности, перелистывая длинный диалог.</p>
-          <div class="screen"><img loading="lazy" src="img/s11.webp" alt="Библиотека: все созданные и загруженные файлы в одном списке."><div class="screen-cap">Библиотека: все созданные и загруженные файлы в одном списке.</div></div>
+          <div class="screen"><img width="1200" height="584" src="img/s11.webp" alt="Библиотека: все созданные и загруженные файлы в одном списке."><div class="screen-cap">Библиотека: все созданные и загруженные файлы в одном списке.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -535,12 +571,13 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Загляните в раздел «Запланировано»</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Здесь живут задачи, которые ChatGPT выполняет сам по расписанию: утренняя сводка, еженедельное напоминание собрать отчёт, регулярная подборка новостей по вашей теме.</p>
           <p>Сейчас достаточно знать, что раздел есть, – настраивать будем отдельно, когда появятся регулярные задачи.</p>
-          <div class="screen"><img loading="lazy" src="img/s12.webp" alt="Раздел «Запланировано»: список задач, которые ChatGPT выполняет сам по расписанию."><div class="screen-cap">Раздел «Запланировано»: список задач, которые ChatGPT выполняет сам по расписанию.</div></div>
+          <div class="screen"><img width="1200" height="585" src="img/s12.webp" alt="Раздел «Запланировано»: список задач, которые ChatGPT выполняет сам по расписанию."><div class="screen-cap">Раздел «Запланировано»: список задач, которые ChatGPT выполняет сам по расписанию.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -568,7 +605,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Режим «Работа» – когда нужен результат, а не ответ</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Переключатель «Чат / Работа» стоит сверху – в интерфейсе он может называться и по-английски, GPT Work.</p>
           <p><b>Разница простыми словами.</b> Чат – собеседник: обсудить, спросить, получить текст. «Работа» – напарник: берёт задачу и доводит её до готового результата. Документ, таблица, сайт, серия действий.</p>
           <p>Интерфейс внутри тот же самый: голосовой ввод, выбор модели, файлы, библиотека – всё на своих местах.</p>
@@ -577,10 +614,11 @@ table.map td:first-child{color:var(--ink);font-weight:800}
             <li><b>Сюда подключаются внешние сервисы</b> – документы на Google Диске, встречи в календаре. Это плагины, отдельный урок: пока не трогаем.</li>
             <li><b>Он ведёт вас по шагам.</b> Зная контекст вашей работы, «Работа» сама предлагает, что делать дальше, – не как более умный чат, а как производственный цех вокруг ваших задач.</li>
           </ul>
-          <div class="screen"><img loading="lazy" src="img/s13.webp" alt="Режим «Работа»: другое поле ввода, выбор проекта и плагинов, кнопка «Открыть приложение для компьютера»."><div class="screen-cap">Режим «Работа»: другое поле ввода, выбор проекта и плагинов, кнопка «Открыть приложение для компьютера».</div></div>
-          <div class="screen"><img loading="lazy" src="img/s14.webp" alt="Раздел «Плагины»: подключённые сервисы и те, что можно подключить – почта, диск, календарь, заметки."><div class="screen-cap">Раздел «Плагины»: подключённые сервисы и те, что можно подключить – почта, диск, календарь, заметки.</div></div>
+          <div class="screen"><img width="1200" height="576" src="img/s13.webp" alt="Режим «Работа»: другое поле ввода, выбор проекта и плагинов, кнопка «Открыть приложение для компьютера»."><div class="screen-cap">Режим «Работа»: другое поле ввода, выбор проекта и плагинов, кнопка «Открыть приложение для компьютера».</div></div>
+          <div class="screen"><img width="1200" height="589" src="img/s14.webp" alt="Раздел «Плагины»: подключённые сервисы и те, что можно подключить – почта, диск, календарь, заметки."><div class="screen-cap">Раздел «Плагины»: подключённые сервисы и те, что можно подключить – почта, диск, календарь, заметки.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -591,7 +629,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Свои помощники – Custom GPT</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Раздел <b>«GPT»</b> в панели слева – это конструктор личных помощников. Кнопка «Создать», дальше три поля: название, описание и инструкция – кто он такой и как себя ведёт.</p>
           <p>Что умеет такой помощник:</p>
           <ul>
@@ -605,13 +643,14 @@ table.map td:first-child{color:var(--ink);font-weight:800}
             <div class="card-t">Важно: только в веб-версии</div>
             <p>На момент записи урока создавать помощников можно лишь на сайте chatgpt.com – в приложении на компьютере этой кнопки нет.</p>
           </div>
-          <div class="screen"><img loading="lazy" src="img/s15.webp" alt="Раздел GPT прячется в панели слева под пунктом «Больше»."><div class="screen-cap">Раздел GPT прячется в панели слева под пунктом «Больше».</div></div>
+          <div class="screen"><img width="1200" height="590" src="img/s15.webp" alt="Раздел GPT прячется в панели слева под пунктом «Больше»."><div class="screen-cap">Раздел GPT прячется в панели слева под пунктом «Больше».</div></div>
           <div class="screen-row">
-            <div class="screen"><img loading="lazy" src="img/s16.webp" alt="Кнопка «Создать» в правом верхнем углу раздела GPT."><div class="screen-cap">Кнопка «Создать» в правом верхнем углу раздела GPT.</div></div>
-            <div class="screen"><img loading="lazy" src="img/s17.webp" alt="Поля помощника: название, описание и инструкции – кто он и как себя ведёт."><div class="screen-cap">Поля помощника: название, описание и инструкции – кто он и как себя ведёт.</div></div>
+            <div class="screen"><img width="1200" height="588" src="img/s16.webp" alt="Кнопка «Создать» в правом верхнем углу раздела GPT."><div class="screen-cap">Кнопка «Создать» в правом верхнем углу раздела GPT.</div></div>
+            <div class="screen"><img width="1200" height="591" src="img/s17.webp" alt="Поля помощника: название, описание и инструкции – кто он и как себя ведёт."><div class="screen-cap">Поля помощника: название, описание и инструкции – кто он и как себя ведёт.</div></div>
           </div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -622,19 +661,20 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Кодекс – работа с файлами на вашем компьютере</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Этот раздел есть только в приложении на компьютере – в веб-версии его нет.</p>
           <p>Название намекает на код, но на деле это режим работы с папками и файлами на вашем компьютере: собрать сайт, разложить материалы, настроить свой сервер.</p>
           <p>Устроено дружелюбно: ChatGPT сам спрашивает, какую папку подключить и какие разрешения ему дать. Ничего страшного в этом нет.</p>
           <p>Как это выглядит в работе: есть рабочая папка с проектами, программами и вводными – вы даёте к ней доступ, и дальше помощник сам находит нужные файлы, группирует материалы и берёт из них контекст.</p>
-          <div class="screen"><img loading="lazy" src="img/s18.webp" alt="Приложение на компьютере: переключатель ChatGPT / Codex вверху слева."><div class="screen-cap">Приложение на компьютере: переключатель ChatGPT / Codex вверху слева.</div></div>
-          <div class="screen"><img loading="lazy" src="img/s19.webp" alt="Так выглядит «Кодекс»: карточки-подсказки и строка «Выбрать проект» внизу."><div class="screen-cap">Так выглядит «Кодекс»: карточки-подсказки и строка «Выбрать проект» внизу.</div></div>
+          <div class="screen"><img width="1200" height="658" src="img/s18.webp" alt="Приложение на компьютере: переключатель ChatGPT / Codex вверху слева."><div class="screen-cap">Приложение на компьютере: переключатель ChatGPT / Codex вверху слева.</div></div>
+          <div class="screen"><img width="1200" height="632" src="img/s19.webp" alt="Так выглядит «Кодекс»: карточки-подсказки и строка «Выбрать проект» внизу."><div class="screen-cap">Так выглядит «Кодекс»: карточки-подсказки и строка «Выбрать проект» внизу.</div></div>
           <div class="screen-row">
-            <div class="screen"><img loading="lazy" src="img/s20.webp" alt="Создание проекта в «Кодексе»: название и папки, которые он сможет читать и редактировать."><div class="screen-cap">Создание проекта в «Кодексе»: название и папки, которые он сможет читать и редактировать.</div></div>
-            <div class="screen"><img loading="lazy" src="img/s21.webp" alt="Меню «+» в «Кодексе»: файлы и папки, работа в проекте, цель, режим планирования."><div class="screen-cap">Меню «+» в «Кодексе»: файлы и папки, работа в проекте, цель, режим планирования.</div></div>
+            <div class="screen"><img width="1200" height="621" src="img/s20.webp" alt="Создание проекта в «Кодексе»: название и папки, которые он сможет читать и редактировать."><div class="screen-cap">Создание проекта в «Кодексе»: название и папки, которые он сможет читать и редактировать.</div></div>
+            <div class="screen"><img width="1200" height="623" src="img/s21.webp" alt="Меню «+» в «Кодексе»: файлы и папки, работа в проекте, цель, режим планирования."><div class="screen-cap">Меню «+» в «Кодексе»: файлы и папки, работа в проекте, цель, режим планирования.</div></div>
           </div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -645,7 +685,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Проверьте лимиты и тариф</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Путь один: <b>ваше имя внизу слева → «Настройки» → «Использование»</b>. Там видно, сколько лимитов осталось на вашем тарифе.</p>
           <ul>
             <li><b>Что расходует лимиты.</b> Обычная переписка в чате почти не тратит их. Уходят они на «Работу» и «Кодекс» – там, где ChatGPT делает файлы и выполняет длинные задачи.</li>
@@ -658,11 +698,12 @@ table.map td:first-child{color:var(--ink);font-weight:800}
             <div class="card-t">Как оплатить из России</div>
             <p>Российские карты не работают – рабочие способы оплаты разобраны в первом гайде «Старт работы в ChatGPT», шаг 2.</p>
           </div>
-          <div class="screen"><img loading="lazy" src="img/s22.webp" alt="Клик по своему имени внизу слева открывает меню – нам нужны «Настройки»."><div class="screen-cap">Клик по своему имени внизу слева открывает меню – нам нужны «Настройки».</div></div>
-          <div class="screen"><img loading="lazy" src="img/s23.webp" alt="Настройки → «Использование»: сколько лимита осталось и когда он сбросится. Разговоры в чате в этот лимит не входят."><div class="screen-cap">Настройки → «Использование»: сколько лимита осталось и когда он сбросится. Разговоры в чате в этот лимит не входят.</div></div>
-          <div class="screen"><img loading="lazy" src="img/s24.webp" alt="Настройки → «Оплата»: текущий тариф и кнопка «Обновить» для перехода на другой."><div class="screen-cap">Настройки → «Оплата»: текущий тариф и кнопка «Обновить» для перехода на другой.</div></div>
+          <div class="screen"><img width="1200" height="580" src="img/s22.webp" alt="Клик по своему имени внизу слева открывает меню – нам нужны «Настройки»."><div class="screen-cap">Клик по своему имени внизу слева открывает меню – нам нужны «Настройки».</div></div>
+          <div class="screen"><img width="1200" height="582" src="img/s23.webp" alt="Настройки → «Использование»: сколько лимита осталось и когда он сбросится. Разговоры в чате в этот лимит не входят."><div class="screen-cap">Настройки → «Использование»: сколько лимита осталось и когда он сбросится. Разговоры в чате в этот лимит не входят.</div></div>
+          <div class="screen"><img width="1200" height="578" src="img/s24.webp" alt="Настройки → «Оплата»: текущий тариф и кнопка «Обновить» для перехода на другой."><div class="screen-cap">Настройки → «Оплата»: текущий тариф и кнопка «Обновить» для перехода на другой.</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
+          </div>
           </div>
         </div>
       </div>
@@ -673,7 +714,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Веб-версия или приложение – чем отличаются</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <p>Главная путаница новичка: одно и то же есть не везде. Общая логика такая.</p>
           <div class="cards">
             <div class="card a-gold">
@@ -693,6 +734,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
           </div>
+          </div>
         </div>
       </div>
 
@@ -702,7 +744,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           <span class="action-t">Проверьте себя</span>
           <span class="action-toggle"></span>
         </button>
-        <div class="action-body">
+        <div class="action-body"><div class="action-inner">
           <ul class="check">
             <li>Понятно, где поле ввода, панель слева и настройки под своим именем.</li>
             <li>Первый разговор состоялся: ChatGPT задал встречные вопросы, ответы даны голосом.</li>
@@ -716,6 +758,7 @@ table.map td:first-child{color:var(--ink);font-weight:800}
           </div>
           <div class="action-foot">
             <button class="btn-done" type="button">Всё сходится!</button>
+          </div>
           </div>
         </div>
       </div>
@@ -755,12 +798,20 @@ table.map td:first-child{color:var(--ink);font-weight:800}
       <h2>Вы освоились в интерфейсе</h2>
       <p>Теперь вы знаете, где что лежит, – и дальше остаётся только практика. Погуляйте по разделам, поспрашивайте ChatGPT, чем он может быть вам полезен. Встречаемся на курсе <a href="https://gramota.ai/essence/" target="_blank" rel="noopener">«Личный ИИ-помощник с нуля за 4 недели»</a>: старт 5 сентября.</p>
     </div>
-              <stop offset="0" stop-color="#58C4EF"/><stop offset="0.5" stop-color="#B49AE3"/><stop offset="1" stop-color="#F65BA3"/>
+    <img class="final-companion" src="img/s25.webp" alt="Компаньон Эссенс">
   </div>
 </section>
 <footer class="footer">
   <div class="wrap footer-inner">
-            <path d="M624.0 582.0V126.0L746.0 4.0H1098.0V157.0H798.0V551.0H1108.0V704.0H746.0Z"/>
+    <svg class="footer-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4794 708" role="img" aria-label="ЭССЕНС.AI">
+      <defs>
+        <linearGradient id="essenceHoloF" x1="0" y1="0" x2="4794" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#58C4EF"/><stop offset="0.5" stop-color="#B49AE3"/><stop offset="1" stop-color="#F65BA3"/>
+        </linearGradient>
+      </defs>
+      <g fill="url(#essenceHoloF)">
+        <path d="M534 578.0 408 704.0H0V560.0H363V148.0H10V4.0H408L534 130.0ZM464 421.0H104V287.0H464Z"/>
+        <path d="M624.0 582.0V126.0L746.0 4.0H1098.0V157.0H798.0V551.0H1108.0V704.0H746.0Z"/>
         <path d="M1180.0 582.0V126.0L1302.0 4.0H1654.0V157.0H1354.0V551.0H1664.0V704.0H1302.0Z"/>
         <path d="M1739.0 704.0V4.0H2231.0V144.0H1907.0V280.0H2181.0V414.0H1907.0V564.0H2241.0V704.0Z"/>
         <path d="M2319.0 704.0V4.0H2487.0V268.0H2713.0V4.0H2881.0V704.0H2713.0V420.0H2487.0V704.0Z"/>
@@ -770,14 +821,6 @@ table.map td:first-child{color:var(--ink);font-weight:800}
         <path d="M4454.0 708.0V577.0L4540.0 572.0V136.0L4454.0 131.0V0.0L4624.0 8.0L4794.0 0.0V131.0L4708.0 136.0V572.0L4794.0 577.0V708.0L4624.0 700.0Z"/>
       </g>
     </svg>
-    <p class="footer-name">Ирина Клейман</p>
-    <p>Курс «Личный ИИ-помощник с нуля за 4 недели» · 2026</p>
-    <p>Сервисы и цены меняются: перед оплатой проверяйте актуальность</p>
-  </div>
-</footer>
-
-<div class="modal" id="gmailModal" hidden>
-  <div class="modal-card">
     <p class="footer-name">Ирина Клейман</p>
     <p>Курс «Личный ИИ-помощник с нуля за 4 недели» · 2026</p>
     <p>Интерфейс ChatGPT регулярно обновляется: названия разделов и расположение кнопок могут меняться</p>
@@ -863,6 +906,11 @@ table.map td:first-child{color:var(--ink);font-weight:800}
         }
       }
     });
+  });
+
+  document.querySelectorAll('.screen img').forEach(function(im){
+    if(im.complete&&im.naturalWidth)im.classList.add('ready');
+    else im.addEventListener('load',function(){im.classList.add('ready')});
   });
 
   var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lightbox-img');
