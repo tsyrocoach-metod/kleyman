@@ -149,9 +149,9 @@ h2{font-family:var(--russo);font-weight:400;font-size:clamp(26px,4.5vw,36px);lin
 .modal-title{flex:1;font-family:var(--russo);font-size:14px;letter-spacing:1.2px;text-transform:uppercase;color:#F4F0F7}
 .modal-close{border:1px solid rgba(255,255,255,0.25);background:none;color:#F4F0F7;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;line-height:1}
 .modal-body{overflow-y:auto;padding:18px 20px 6px}
-.gm-slide{display:none}
-.gm-slide.on{display:block}
-.gm-slide img{display:block;width:100%;max-height:56vh;object-fit:contain;border-radius:14px;border:1px solid var(--card-border);background:#fff}
+.gm-slide,.rm-slide{display:none}
+.gm-slide.on,.rm-slide.on{display:block}
+.gm-slide img,.rm-slide img{display:block;width:100%;max-height:56vh;object-fit:contain;border-radius:14px;border:1px solid var(--card-border);background:#fff}
 .gm-cap{margin-top:12px}
 .gm-cap b{color:var(--ink)}
 .modal-foot{display:flex;align-items:center;gap:12px;padding:14px 20px 18px}
@@ -201,8 +201,12 @@ body[data-route="world"] .only-ru{display:none}
 .final p{margin-top:14px;color:#C8B0F0}
 .final a{color:var(--pink-light);text-decoration-color:rgba(255,135,192,0.5)}
 .final-companion{width:min(190px,30vw);filter:drop-shadow(0 18px 40px rgba(124,200,230,0.35))}
-.footer{background:var(--ink);color:#8B80A6;padding:16px 0 24px;border-top:1px solid rgba(255,255,255,0.08)}
+.footer{background:var(--ink);padding:40px 0 44px;border-top:1px solid rgba(255,255,255,0.08)}
+.footer-inner{text-align:center}
+.footer-mark{width:min(240px,60vw);display:block;margin:0 auto 20px}
+.footer-name{font-family:var(--russo);font-size:14px;letter-spacing:2.4px;text-transform:uppercase;color:#F4F0F7;margin-bottom:10px}
 .footer p{color:#8B80A6}
+.footer p+p{margin-top:4px}
 .rainbow-line{height:4px;background:var(--grad-line)}
 
 @media (max-width:700px){
@@ -468,7 +472,7 @@ body[data-route="world"] .only-ru{display:none}
         </div>
       </div>
 
-      <div class="action only-ru" data-id="ru-pay">
+      <div class="action only-ru" data-id="ru-pay" id="act-ru-pay">
         <button class="action-head" type="button">
           <span class="action-num">4</span>
           <span class="action-t">Выберите способ оплаты – или пока останьтесь на Free</span>
@@ -517,7 +521,7 @@ body[data-route="world"] .only-ru{display:none}
   <div class="wrap">
     <div class="kicker k-sky">Шаг 3</div>
     <h2>Установка: компьютер и телефон</h2>
-    <p class="lead">Работать удобнее всего на компьютере именно в приложении – в нём больше функций: работа с файлами, голосовой режим, быстрый вызов поверх других окон. Мобильное приложение и веб-версия – для оперативного доступа: спросить на ходу, надиктовать мысль, сфотографировать документ.</p>
+    <p class="lead">Работать удобнее всего на компьютере именно в приложении – в нём больше функций: работа с файлами, голосовой режим, быстрый вызов поверх других окон. Мобильное приложение – для оперативного доступа: спросить на ходу, надиктовать мысль, сфотографировать документ. Для курса рекомендуем иметь все три версии – приложение на компьютере, мобильное приложение и веб-версию chatgpt.com: их функционал отличается, и на практикумах мы будем обращаться к каждой.</p>
 
     <div class="actions">
 
@@ -528,12 +532,13 @@ body[data-route="world"] .only-ru{display:none}
           <span class="action-toggle"></span>
         </button>
         <div class="action-body">
-          <ul>
-            <li><b>macOS</b> – скачайте с официальной страницы <a href="https://chatgpt.com/download" target="_blank" rel="noopener">chatgpt.com/download</a> и перетащите ChatGPT в папку «Программы».</li>
-            <li><b>Windows</b> – приложение «ChatGPT» от OpenAI в Microsoft Store (ссылка на него есть на той же странице <a href="https://chatgpt.com/download" target="_blank" rel="noopener">chatgpt.com/download</a>) – нажмите «Получить».</li>
-          </ul>
-          <p>После установки войдите в тот же аккаунт, что и на сайте.</p>
-          <p class="hint">Если ставить приложение не хочется – закрепите вкладку chatgpt.com в браузере. Но в приложении возможностей больше.</p>
+          <ol>
+            <li>Откройте официальную страницу <a href="https://chatgpt.com/download" target="_blank" rel="noopener">chatgpt.com/download</a> и скачайте установщик: <b>macOS</b> – «Скачать для Apple Silicon» (новые Mac) или «для Mac с Intel» (Mac до 2021 года); <b>Windows</b> – своя кнопка, она ведёт в Microsoft Store, там нажмите «Получить».</li>
+            <li>Откройте скачанный файл и установите программу, следуя подсказкам на вашем устройстве. На Mac – перетащите значок ChatGPT в папку «Программы».</li>
+            <li><span class="only-ru">Убедитесь, что VPN включён, затем о</span><span class="only-world">О</span>ткройте установленную программу.</li>
+            <li>Авторизуйтесь: <b>«Продолжить с Google»</b> – тот же аккаунт, которым регистрировались в шаге 1.</li>
+          </ol>
+          <p class="hint">Веб-версия chatgpt.com тоже остаётся в строю – закрепите вкладку в браузере: часть функций удобнее именно там, и на практикумах она понадобится наряду с приложениями.</p>
           <div class="screen"><img src="img/scrdownload.webp" loading="lazy" decoding="async" alt="Страница загрузки ChatGPT"><div class="screen-cap">Страница chatgpt.com/download: для новых Mac – «Скачать для Apple Silicon», для Mac до 2021 года – «для Mac с Intel», для Windows – своя кнопка</div></div>
           <div class="action-foot">
             <button class="btn-done" type="button">Готово, дальше</button>
@@ -559,48 +564,19 @@ body[data-route="world"] .only-ru{display:none}
               <summary>iPhone – меняем регион App Store (проверенный путь, без карты)</summary>
               <div class="faq-body">
                 <p>Новый Apple ID заводить не обязательно: у своего аккаунта можно сменить страну магазина. Мы прошли этот путь сами – карта не понадобилась.</p>
-                <ol>
-                  <li>Откройте «Настройки» и нажмите на своё имя сверху. Затем откройте <b>«Контент и покупки»</b> → «Настройки учетной записи».</li>
-                </ol>
-                <div class="screen-row">
-                  <div class="screen"><img src="img/reg1.webp" loading="lazy" decoding="async" alt="Настройки iPhone – своё имя"><div class="screen-cap">Настройки → нажмите на своё имя сверху</div></div>
-                  <div class="screen"><img src="img/reg2.webp" loading="lazy" decoding="async" alt="Аккаунт Apple – Контент и покупки"><div class="screen-cap">На экране «Аккаунт Apple» выберите «Контент и покупки»</div></div>
-                </div>
-                <ol start="2">
-                  <li>Нажмите <b>«Страна/регион»</b>, на предупреждении – «Продолжить», и выберите США.</li>
-                </ol>
-                <div class="screen-row">
-                  <div class="screen"><img src="img/reg3.webp" loading="lazy" decoding="async" alt="Настройки учетной записи – Страна/регион"><div class="screen-cap">«Настройки учетной записи» → строка «Страна/регион»</div></div>
-                  <div class="screen"><img src="img/reg4.webp" loading="lazy" decoding="async" alt="Изменение страны или региона"><div class="screen-cap">Прочитайте предупреждение и нажмите «Продолжить»</div></div>
-                </div>
-                <ol start="3">
-                  <li>Способ оплаты выберите <b>«Нет»</b>, а в адресе укажите любой американский адрес из интернета: улица, город, штат, индекс и телефон в формате США.</li>
-                </ol>
-                <div class="screen-row">
-                  <div class="screen"><img src="img/reg5.webp" loading="lazy" decoding="async" alt="Способ оплаты – Нет"><div class="screen-cap">Способ оплаты: отметьте «Нет» – карта не обязательна</div></div>
-                  <div class="screen"><img src="img/reg6.webp" loading="lazy" decoding="async" alt="Пример американского адреса"><div class="screen-cap">Пример заполнения: адрес, город, штат, индекс и телефон США</div></div>
-                </div>
                 <div class="callout">
-                  <div class="card-t">Готовый адрес – просто перепишите</div>
-                  <p>Это реальные общественные места на Аляске: в этом штате нет налога с продаж, поэтому цены в App Store будут без надбавок. Не подошёл – нажмите кнопку, покажем следующий.</p>
-                  <div class="addr-grid">
-                    <div class="addr-row"><span>Адрес</span><b id="ad-street">210 Muldoon Rd</b></div>
-                    <div class="addr-row"><span>Город</span><b id="ad-city">Anchorage</b></div>
-                    <div class="addr-row"><span>Штат</span><b>Аляска (Alaska)</b></div>
-                    <div class="addr-row"><span>Индекс</span><b id="ad-zip">99504</b></div>
-                    <div class="addr-row"><span>Телефон</span><b id="ad-phone">(907) 338-3458</b></div>
-                  </div>
-                  <div class="action-foot">
-                    <button class="btn-ghost" id="ad-next" type="button">Показать другой адрес</button>
-                  </div>
+                  <div class="card-t">Важно знать до смены региона</div>
+                  <p>Установленные приложения с телефона <b>не пропадают</b>. Но учтите три вещи:</p>
+                  <ul>
+                    <li><b>Подписки и покупки</b> российского App Store (включая семейные) могут стать недоступны, пока выбран другой регион – Apple предупреждает об этом на экране «Изменение страны». Просмотрите свои платные подписки заранее.</li>
+                    <li><b>Российские приложения</b> (банки, госсервисы и т.п.), которых нет в зарубежных магазинах, из App Store другого региона не установить и не обновить. Поэтому до смены страны убедитесь, что всё нужное на ближайшее время уже стоит на телефоне.</li>
+                    <li><b>Часто переключать регион не получится</b> – у Apple действуют ограничения на повторную смену (до 90 дней). Планируйте так, чтобы не пришлось прыгать туда-обратно.</li>
+                  </ul>
                 </div>
-                <ol start="4">
-                  <li>Готово: страна аккаунта – Соединенные Штаты. Теперь в App Store найдите <b>«ChatGPT»</b> от OpenAI и нажмите «Загрузить».</li>
-                </ol>
-                <div class="screen-row">
-                  <div class="screen"><img src="img/reg7.webp" loading="lazy" decoding="async" alt="Страна изменена на США"><div class="screen-cap">Результат: страна – Соединенные Штаты, способ оплаты – нет</div></div>
-                  <div class="screen"><img src="img/reg8.webp" loading="lazy" decoding="async" alt="ChatGPT в App Store – Загрузить"><div class="screen-cap">App Store: приложение ChatGPT от OpenAI – кнопка «Загрузить»</div></div>
+                <div class="action-foot">
+                  <button class="btn-done" id="rm-open" type="button">Открыть пошаговую инструкцию</button>
                 </div>
+                <p class="hint">8 шагов со скриншотами и готовыми адресами – около 5 минут.</p>
                 <div class="callout">
                   <div class="card-t">Просит карту и не даёт выбрать «Нет»? Проверьте семейный доступ</div>
                   <p>Если включён семейный доступ, сменить страну без карты не получится. Отключите его: «Настройки» → ваше имя → <b>«Семья»</b> → нажмите на себя → <b>«Прекратить семейный доступ»</b>. После этого вариант «Нет» в способах оплаты появится. Семейный доступ потом можно включить заново.</p>
@@ -612,24 +588,33 @@ body[data-route="world"] .only-ru{display:none}
               </div>
             </details>
             <details class="faq">
-              <summary>Запасной вариант: новый Apple ID другого региона</summary>
+              <summary>Вариант 2: отдельный Apple ID другого региона – если не хотите трогать основной</summary>
               <div class="faq-body">
+                <p>Этот путь бережнее к вашему основному аккаунту: свой Apple ID вы не трогаете вовсе, поэтому ваши подписки и покупки точно ничем не рискуют. Отдельный аккаунт нужен только чтобы скачать приложение. Минус – придётся переключаться между аккаунтами, и здесь чаще просят карту региона.</p>
                 <ol>
-                  <li>На сайте <a href="https://appleid.apple.com" target="_blank" rel="noopener">appleid.apple.com</a> нажмите «Создать Apple ID». Понадобится новая почта (подойдёт Gmail из шага 1), страна – например, США, и любой адрес этой страны (можно взять адрес отеля из интернета).</li>
+                  <li>На сайте <a href="https://appleid.apple.com" target="_blank" rel="noopener">appleid.apple.com</a> нажмите «Создать Apple ID». Понадобится новая почта (подойдёт Gmail из шага 1), страна – например, США, и любой адрес этой страны (готовые адреса – в карточке выше, в варианте 1).</li>
                   <li>Подтвердите почту по письму.</li>
                   <li>На iPhone откройте «Настройки» → ваше имя → <b>«Медиа и покупки»</b> → выйдите из текущего аккаунта и войдите в новый Apple ID.</li>
                   <li>В App Store найдите <b>«ChatGPT»</b> от OpenAI и нажмите «Загрузить».</li>
                   <li>Тем же путём вернитесь в свой основной Apple ID – установленное приложение продолжит работать.</li>
                 </ol>
                 <div class="screen"><img src="img/scrappleid.webp" loading="lazy" decoding="async" alt="Форма создания Аккаунта Apple"><div class="screen-cap">Форма создания Аккаунта Apple: главное поле – «Страна/регион», выберите вместо России, например, США</div></div>
-                <p><b>Понадобится зарубежная карта.</b> При настройке аккаунта магазин запрашивает способ оплаты выбранного региона – подойдёт виртуальная карта из шага «Оплата» (путь «Своя виртуальная карта»). Если на экране есть вариант «None» / «Нет» – выбирайте его, но чаще карту всё же просят, поэтому удобнее сначала пройти шаг «Оплата», а потом возвращаться сюда.</p>
+                <p><b>Может понадобиться зарубежная карта.</b> При настройке аккаунта магазин запрашивает способ оплаты выбранного региона. Если на экране есть вариант «None» / «Нет» – выбирайте его. Если просят карту – подойдёт виртуальная, её выпуск мы разобрали в шаге «Оплата»:</p>
+                <div class="linkrow">
+                  <a href="#act-ru-pay" class="cardlink">💳 Где взять карту – шаг «Оплата», путь 4</a>
+                </div>
                 <p class="hint">Подробная инструкция со скриншотами: <a href="https://vc.ru/services/2700373-kak-ustanovit-chatgpt-na-iphone-v-rossii" target="_blank" rel="noopener">статья на vc.ru</a>.</p>
               </div>
             </details>
             <details class="faq">
               <summary>Android – меняем страну в Google Play</summary>
               <div class="faq-body">
-                <p>Откройте Google Play → аватар справа сверху → «Настройки» → «Общие» → «Настройки аккаунта и устройства» → <b>«Страна и профили»</b> – и выберите другую страну. Если Play не даёт сменить страну, проще завести отдельный Google-аккаунт с включённым VPN и войти в Play с него. После этого приложение «ChatGPT» от OpenAI появится в поиске.</p>
+                <p>Откройте Google Play → аватар справа сверху → «Настройки» → «Общие» → «Настройки аккаунта и устройства» → <b>«Страна и профили»</b> – и выберите другую страну. Если Play не даёт сменить страну, проще завести отдельный Google-аккаунт с включённым VPN и войти в Play с него – основной аккаунт при этом не трогаете, приложения и покупки ничем не рискуют.</p>
+                <p>Учтите: при смене страны у <b>основного</b> аккаунта баланс Google Play и подписки российского региона могут стать недоступны, российские приложения (банки, госсервисы) из зарубежного магазина не установить – поставьте всё нужное заранее. И главное: <b>Google Play разрешает менять страну не чаще одного раза в год</b>, обратно быстро не вернётесь. Для смены может понадобиться способ оплаты нового региона:</p>
+                <div class="linkrow">
+                  <a href="#act-ru-pay" class="cardlink">💳 Где взять карту – шаг «Оплата», путь 4</a>
+                </div>
+                <p>После смены страны приложение «ChatGPT» от OpenAI появится в поиске.</p>
               </div>
             </details>
             <details class="faq">
@@ -682,7 +667,29 @@ body[data-route="world"] .only-ru{display:none}
   </div>
 </section>
 <footer class="footer">
-  <div class="wrap"><p>Эссенс.Ai · Ирина Клейман · гайд «Старт работы в ChatGPT» к курсу «Личный ИИ-помощник с нуля за 4 недели»</p><p>2026 · Сервисы и цены меняются: перед оплатой проверяйте актуальность</p></div>
+  <div class="wrap footer-inner">
+    <svg class="footer-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4794 708" role="img" aria-label="ЭССЕНС.AI">
+      <defs>
+        <linearGradient id="essenceHoloF" x1="0" y1="0" x2="4794" y2="0" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#58C4EF"/><stop offset="0.5" stop-color="#B49AE3"/><stop offset="1" stop-color="#F65BA3"/>
+        </linearGradient>
+      </defs>
+      <g fill="url(#essenceHoloF)">
+        <path d="M534 578.0 408 704.0H0V560.0H363V148.0H10V4.0H408L534 130.0ZM464 421.0H104V287.0H464Z"/>
+        <path d="M624.0 582.0V126.0L746.0 4.0H1098.0V157.0H798.0V551.0H1108.0V704.0H746.0Z"/>
+        <path d="M1180.0 582.0V126.0L1302.0 4.0H1654.0V157.0H1354.0V551.0H1664.0V704.0H1302.0Z"/>
+        <path d="M1739.0 704.0V4.0H2231.0V144.0H1907.0V280.0H2181.0V414.0H1907.0V564.0H2241.0V704.0Z"/>
+        <path d="M2319.0 704.0V4.0H2487.0V268.0H2713.0V4.0H2881.0V704.0H2713.0V420.0H2487.0V704.0Z"/>
+        <path d="M2974.0 582.0V126.0L3096.0 4.0H3448.0V157.0H3148.0V551.0H3458.0V704.0H3096.0Z"/>
+        <path d="M3541.0 704.0V544.0H3697.0V704.0Z"/>
+        <path d="M3764.0 704.0 3918.0 4.0H4244.0L4398.0 704.0H4220.0L4191.0 554.0H3971.0L3942.0 704.0ZM3992.0 433.0H4170.0L4112.0 137.0H4050.0Z"/>
+        <path d="M4454.0 708.0V577.0L4540.0 572.0V136.0L4454.0 131.0V0.0L4624.0 8.0L4794.0 0.0V131.0L4708.0 136.0V572.0L4794.0 577.0V708.0L4624.0 700.0Z"/>
+      </g>
+    </svg>
+    <p class="footer-name">Ирина Клейман</p>
+    <p>Курс «Личный ИИ-помощник с нуля за 4 недели» · 2026</p>
+    <p>Сервисы и цены меняются: перед оплатой проверяйте актуальность</p>
+  </div>
 </footer>
 
 <div class="modal" id="gmailModal" hidden>
@@ -707,6 +714,41 @@ body[data-route="world"] .only-ru{display:none}
       <span class="gm-count" id="gm-count">Шаг 1 из 10</span>
       <button class="btn-ghost gm-prev" id="gm-prev" type="button">Назад</button>
       <button class="btn-done" id="gm-next" type="button">Дальше</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="regionModal" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">Меняем регион App Store</div>
+      <button class="modal-close" id="rm-close" type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="rm-slide on"><img src="img/reg1.webp" loading="lazy" decoding="async" alt="Шаг 1"><p class="gm-cap">Откройте «Настройки» и нажмите на <b>своё имя</b> сверху.</p></div>
+      <div class="rm-slide"><img src="img/reg2.webp" loading="lazy" decoding="async" alt="Шаг 2"><p class="gm-cap">На экране «Аккаунт Apple» выберите <b>«Контент и покупки»</b> → «Настройки учетной записи».</p></div>
+      <div class="rm-slide"><img src="img/reg3.webp" loading="lazy" decoding="async" alt="Шаг 3"><p class="gm-cap">Нажмите строку <b>«Страна/регион»</b>.</p></div>
+      <div class="rm-slide"><img src="img/reg4.webp" loading="lazy" decoding="async" alt="Шаг 4"><p class="gm-cap">Прочитайте предупреждение, нажмите <b>«Продолжить»</b> и выберите США.</p></div>
+      <div class="rm-slide"><img src="img/reg5.webp" loading="lazy" decoding="async" alt="Шаг 5"><p class="gm-cap">Способ оплаты: отметьте <b>«Нет»</b> – карта не обязательна.</p></div>
+      <div class="rm-slide"><img src="img/reg6.webp" loading="lazy" decoding="async" alt="Шаг 6"><p class="gm-cap">Заполните американский адрес и телефон – возьмите готовый:</p>
+        <div class="addr-grid">
+          <div class="addr-row"><span>Адрес</span><b id="ad-street">210 Muldoon Rd</b></div>
+          <div class="addr-row"><span>Город</span><b id="ad-city">Anchorage</b></div>
+          <div class="addr-row"><span>Штат</span><b>Аляска (Alaska)</b></div>
+          <div class="addr-row"><span>Индекс</span><b id="ad-zip">99504</b></div>
+          <div class="addr-row"><span>Телефон</span><b id="ad-phone">(907) 338-3458</b></div>
+        </div>
+        <div class="action-foot">
+          <button class="btn-ghost" id="ad-next" type="button">Показать другой адрес</button>
+        </div>
+        <p class="gm-cap">Это реальные общественные места на Аляске: там нет налога с продаж, цены в App Store будут без надбавок.</p></div>
+      <div class="rm-slide"><img src="img/reg7.webp" loading="lazy" decoding="async" alt="Шаг 7"><p class="gm-cap">Готово: страна аккаунта – <b>Соединенные Штаты</b>, способ оплаты – нет.</p></div>
+      <div class="rm-slide"><img src="img/reg8.webp" loading="lazy" decoding="async" alt="Шаг 8"><p class="gm-cap">В App Store найдите <b>«ChatGPT»</b> от OpenAI и нажмите «Загрузить». Вернуть регион обратно можно тем же путём.</p></div>
+    </div>
+    <div class="modal-foot">
+      <span class="gm-count" id="rm-count">Шаг 1 из 8</span>
+      <button class="btn-ghost gm-prev" id="rm-prev" type="button">Назад</button>
+      <button class="btn-done" id="rm-next" type="button">Дальше</button>
     </div>
   </div>
 </div>
@@ -827,6 +869,38 @@ body[data-route="world"] .only-ru{display:none}
       if(act&&!act.classList.contains('done'))act.querySelector('.btn-done').click();
     });
   }
+
+  var rmModal=document.getElementById('regionModal');
+  if(rmModal){
+    var rmSlides=rmModal.querySelectorAll('.rm-slide');
+    var rmIdx=0;
+    function rmShow(i){
+      rmIdx=Math.max(0,Math.min(i,rmSlides.length-1));
+      rmSlides.forEach(function(s,n){s.classList.toggle('on',n===rmIdx)});
+      document.getElementById('rm-count').textContent='Шаг '+(rmIdx+1)+' из '+rmSlides.length;
+      document.getElementById('rm-prev').disabled=(rmIdx===0);
+      document.getElementById('rm-next').textContent=(rmIdx===rmSlides.length-1)?'Закрыть':'Дальше';
+      rmModal.querySelector('.modal-body').scrollTop=0;
+    }
+    var rmOpen=document.getElementById('rm-open');
+    if(rmOpen)rmOpen.addEventListener('click',function(){rmModal.hidden=false;rmShow(0);});
+    document.getElementById('rm-close').addEventListener('click',function(){rmModal.hidden=true;});
+    rmModal.addEventListener('click',function(e){if(e.target===rmModal)rmModal.hidden=true;});
+    document.getElementById('rm-prev').addEventListener('click',function(){rmShow(rmIdx-1);});
+    document.getElementById('rm-next').addEventListener('click',function(){
+      if(rmIdx===rmSlides.length-1){rmModal.hidden=true;}else{rmShow(rmIdx+1);}
+    });
+  }
+
+  document.querySelectorAll('a.cardlink').forEach(function(l){
+    l.addEventListener('click',function(){
+      var t=document.querySelector(l.getAttribute('href'));
+      if(t&&t.classList.contains('action')){
+        document.querySelectorAll('.action.open').forEach(function(o){o.classList.remove('open')});
+        t.classList.add('open');
+      }
+    });
+  });
 
   var US_ADDR=[
     ["210 Muldoon Rd","Anchorage","99504","(907) 338-3458"],
