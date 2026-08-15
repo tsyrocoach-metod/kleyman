@@ -141,6 +141,23 @@ h2{font-family:var(--russo);font-weight:400;font-size:clamp(26px,4.5vw,36px);lin
 .screen-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px;align-items:start}
 .screen-row .screen{margin-top:0}
 
+/* ── поп-ап пошаговой инструкции ── */
+.modal{position:fixed;inset:0;z-index:100;background:rgba(20,16,42,0.74);display:flex;align-items:center;justify-content:center;padding:18px}
+.modal[hidden]{display:none}
+.modal-card{background:var(--bg);border-radius:24px;max-width:780px;width:100%;max-height:94vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 30px 80px rgba(20,16,42,0.5)}
+.modal-head{display:flex;align-items:center;gap:14px;padding:16px 20px;background:var(--ink)}
+.modal-title{flex:1;font-family:var(--russo);font-size:14px;letter-spacing:1.2px;text-transform:uppercase;color:#F4F0F7}
+.modal-close{border:1px solid rgba(255,255,255,0.25);background:none;color:#F4F0F7;border-radius:50%;width:34px;height:34px;font-size:16px;cursor:pointer;line-height:1}
+.modal-body{overflow-y:auto;padding:18px 20px 6px}
+.gm-slide{display:none}
+.gm-slide.on{display:block}
+.gm-slide img{display:block;width:100%;max-height:56vh;object-fit:contain;border-radius:14px;border:1px solid var(--card-border);background:#fff}
+.gm-cap{margin-top:12px}
+.gm-cap b{color:var(--ink)}
+.modal-foot{display:flex;align-items:center;gap:12px;padding:14px 20px 18px}
+.gm-count{font-family:var(--russo);font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:var(--muted);margin-right:auto}
+.gm-prev[disabled]{opacity:.4;cursor:default}
+
 /* ── карточка адреса США ── */
 .addr-grid{background:#fff;border:1px solid var(--card-border);border-radius:14px;padding:4px 18px;margin-top:12px}
 .addr-row{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:9px 0;border-top:1px solid var(--card-border)}
@@ -321,18 +338,26 @@ body[data-route="world"] .only-ru{display:none}
           <span class="action-toggle"></span>
         </button>
         <div class="action-body">
-          <p>Письмо с подтверждением на Яндекс.Почту, Mail.ru или Rambler часто просто не доходит. Заведите бесплатный ящик Gmail – он же пригодится для входа в один клик через кнопку «Продолжить с Google». Регистрируйтесь с включённым VPN.</p>
-          <p>Если Gmail уже есть – просто отметьте действие выполненным.</p>
-          <div class="linkrow">
-            <a href="https://accounts.google.com/signup" target="_blank" rel="noopener">Создать аккаунт Google</a>
+          <p>Письмо с подтверждением на Яндекс.Почту, Mail.ru или Rambler часто просто не доходит. Для ChatGPT нужен ящик Gmail – он же даст вход в один клик через кнопку «Продолжить с Google».</p>
+          <div class="route-btns">
+            <button class="route-btn" type="button" id="gm-have">
+              <span class="route-flag">✅</span>
+              <span class="card-t">У меня уже есть Google-почта</span>
+              <p>Отлично – ничего создавать не нужно. Нажмите сюда, и действие отметится выполненным.</p>
+            </button>
+            <button class="route-btn" type="button" id="gm-none">
+              <span class="route-flag">📬</span>
+              <span class="card-t">У меня нет Google-почты</span>
+              <p>Откроем пошаговую инструкцию с картинками: 10 шагов, около 5 минут. Мы прошли её сами – СМС с российского номера отправляется без проблем.</p>
+            </button>
           </div>
-          <div class="screen"><img src="img/scrgmail.webp" loading="lazy" decoding="async" alt="Форма создания аккаунта Google"><div class="screen-cap">Форма создания аккаунта Google: вводите имя и нажимаете «Далее» – дальше дата рождения, выбор адреса и пароль</div></div>
+          <p class="hint">Регистрируйтесь с включённым VPN. Форма создания: <a href="https://accounts.google.com/signup" target="_blank" rel="noopener">accounts.google.com/signup</a>.</p>
           <div class="trouble">
             <div class="card-t">Возникли проблемы?</div>
             <details class="faq">
-              <summary>Google просит подтвердить номер, а СМС на российский не приходит</summary>
+              <summary>Google требует принять код по СМС, а он не приходит</summary>
               <div class="faq-body">
-                <p>Так бывает: при регистрации Google может запросить подтверждение по СМС, и коды на российские номера часто не доходят. Выручает временный зарубежный номер – покупается прямо в момент регистрации:</p>
+                <p>Обычно Google просит наоборот – <b>отправить</b> СМС с вашего телефона, и с российского номера это работает (шаги 6–8 пошаговой инструкции). Но если вам предлагают именно принять код, а СМС на российский номер не приходит – выручает временный зарубежный номер, покупается прямо в момент регистрации:</p>
                 <ol>
                   <li>Откройте <a href="https://smsfast.io" target="_blank" rel="noopener">smsfast.io</a> в соседней вкладке и зарегистрируйтесь.</li>
                   <li>В списке сервисов найдите <b>Google (YouTube, Gmail)</b>.</li>
@@ -660,6 +685,32 @@ body[data-route="world"] .only-ru{display:none}
   <div class="wrap"><p>Эссенс.Ai · Ирина Клейман · гайд «Старт работы в ChatGPT» к курсу «Личный ИИ-помощник с нуля за 4 недели»</p><p>2026 · Сервисы и цены меняются: перед оплатой проверяйте актуальность</p></div>
 </footer>
 
+<div class="modal" id="gmailModal" hidden>
+  <div class="modal-card">
+    <div class="modal-head">
+      <div class="modal-title">Создаём Google-почту</div>
+      <button class="modal-close" id="gm-close" type="button">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="gm-slide on"><img src="img/gm1.webp" loading="lazy" decoding="async" alt="Шаг 1"><p class="gm-cap">С включённым VPN откройте <b>accounts.google.com/signup</b>, введите имя и нажмите <b>«Далее»</b>.</p></div>
+      <div class="gm-slide"><img src="img/gm2.webp" loading="lazy" decoding="async" alt="Шаг 2"><p class="gm-cap">Укажите дату рождения и пол – <b>«Далее»</b>.</p></div>
+      <div class="gm-slide"><img src="img/gm3.webp" loading="lazy" decoding="async" alt="Шаг 3"><p class="gm-cap">Придумайте адрес почты: латинские буквы, цифры и точки – <b>«Далее»</b>.</p></div>
+      <div class="gm-slide"><img src="img/gm4.webp" loading="lazy" decoding="async" alt="Шаг 4"><p class="gm-cap">Придумайте надёжный пароль и повторите его – <b>«Далее»</b>. Обязательно сохраните пароль в надёжном месте.</p></div>
+      <div class="gm-slide"><img src="img/gm5.webp" loading="lazy" decoding="async" alt="Шаг 5"><p class="gm-cap">Google попросит подтвердить данные: <b>отсканируйте QR-код</b> камерой телефона и перейдите по ссылке.</p></div>
+      <div class="gm-slide"><img src="img/gm6.webp" loading="lazy" decoding="async" alt="Шаг 6"><p class="gm-cap">На телефоне откроется страница Google – нажмите <b>«Send SMS»</b>.</p></div>
+      <div class="gm-slide"><img src="img/gm7.webp" loading="lazy" decoding="async" alt="Шаг 7"><p class="gm-cap">Откроется готовое СМС. Ничего не меняйте – просто нажмите <b>«Отправить»</b>. С российского номера СМС уходит без проблем.</p></div>
+      <div class="gm-slide"><img src="img/gm8.webp" loading="lazy" decoding="async" alt="Шаг 8"><p class="gm-cap">Google проверяет номер – подождите несколько секунд.</p></div>
+      <div class="gm-slide"><img src="img/gm9.webp" loading="lazy" decoding="async" alt="Шаг 9"><p class="gm-cap">Готово – возвращайтесь на компьютер, где начинали регистрацию.</p></div>
+      <div class="gm-slide"><img src="img/gm10.webp" loading="lazy" decoding="async" alt="Шаг 10"><p class="gm-cap">Резервную почту можно добавить позже – жмите <b>«Пропустить»</b>. Всё, ваша Google-почта создана! Закройте инструкцию и отметьте действие выполненным.</p></div>
+    </div>
+    <div class="modal-foot">
+      <span class="gm-count" id="gm-count">Шаг 1 из 10</span>
+      <button class="btn-ghost gm-prev" id="gm-prev" type="button">Назад</button>
+      <button class="btn-done" id="gm-next" type="button">Дальше</button>
+    </div>
+  </div>
+</div>
+
 <script>
 (function(){
   var LS_ROUTE='essence-gpt-route', LS_DONE='essence-gpt-done';
@@ -749,6 +800,33 @@ body[data-route="world"] .only-ru{display:none}
       }
     });
   });
+
+  var gmModal=document.getElementById('gmailModal');
+  if(gmModal){
+    var gmSlides=gmModal.querySelectorAll('.gm-slide');
+    var gmIdx=0;
+    function gmShow(i){
+      gmIdx=Math.max(0,Math.min(i,gmSlides.length-1));
+      gmSlides.forEach(function(s,n){s.classList.toggle('on',n===gmIdx)});
+      document.getElementById('gm-count').textContent='Шаг '+(gmIdx+1)+' из '+gmSlides.length;
+      document.getElementById('gm-prev').disabled=(gmIdx===0);
+      document.getElementById('gm-next').textContent=(gmIdx===gmSlides.length-1)?'Закрыть':'Дальше';
+      gmModal.querySelector('.modal-body').scrollTop=0;
+    }
+    var gmNone=document.getElementById('gm-none');
+    if(gmNone)gmNone.addEventListener('click',function(){gmModal.hidden=false;gmShow(0);});
+    document.getElementById('gm-close').addEventListener('click',function(){gmModal.hidden=true;});
+    gmModal.addEventListener('click',function(e){if(e.target===gmModal)gmModal.hidden=true;});
+    document.getElementById('gm-prev').addEventListener('click',function(){gmShow(gmIdx-1);});
+    document.getElementById('gm-next').addEventListener('click',function(){
+      if(gmIdx===gmSlides.length-1){gmModal.hidden=true;}else{gmShow(gmIdx+1);}
+    });
+    var gmHave=document.getElementById('gm-have');
+    if(gmHave)gmHave.addEventListener('click',function(){
+      var act=document.querySelector('.action[data-id="ru-mail"]');
+      if(act&&!act.classList.contains('done'))act.querySelector('.btn-done').click();
+    });
+  }
 
   var US_ADDR=[
     ["210 Muldoon Rd","Anchorage","99504","(907) 338-3458"],
