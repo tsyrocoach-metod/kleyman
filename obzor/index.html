@@ -238,12 +238,6 @@ table.map td:first-child{color:var(--ink);font-weight:800}
 .prompt .card-t{color:#C8B0F0;font-family:var(--russo);font-weight:400;font-size:13px;letter-spacing:1.8px;text-transform:uppercase}
 .prompt p{margin-top:10px}
 .map-section{padding:0 0 10px}
-/* ── увеличение скрина по клику ── */
-.screen img{cursor:zoom-in}
-.lightbox{position:fixed;inset:0;z-index:120;background:rgba(20,16,42,0.9);display:flex;align-items:center;justify-content:center;padding:16px;cursor:zoom-out}
-.lightbox[hidden]{display:none}
-.lightbox img{max-width:100%;max-height:92vh;border-radius:12px;background:#fff}
-.lightbox-hint{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--russo);font-size:12px;letter-spacing:1.2px;text-transform:uppercase;color:#C8B0F0}
 
 /* ── плавное раскрытие аккордеона ── */
 .action-body{display:grid;grid-template-rows:minmax(0,0fr);opacity:0;padding:0;border-top:1px solid transparent;transition:grid-template-rows .42s cubic-bezier(.33,.1,.2,1),opacity .3s ease,border-color .3s ease}
@@ -254,8 +248,9 @@ table.map td:first-child{color:var(--ink);font-weight:800}
 .action-head{transition:background .2s ease}
 .action-num,.action-t{transition:color .25s ease,background .25s ease}
 
-/* ── картинки проявляются, а не выпрыгивают ── */
-.screen img{opacity:0;transition:opacity .45s ease}
+/* ── картинки: пропорции сохраняются, размеры в разметке только резервируют место ── */
+.screen img{width:100%;height:auto;opacity:0;transition:opacity .45s ease}
+.lightbox img{width:auto;height:auto}
 .screen img.ready{opacity:1}
 
 /* ── мягкая смена шага ── */
@@ -827,8 +822,6 @@ section.step{padding-bottom:96px}
   </div>
 </footer>
 
-<div class="lightbox" id="lightbox" hidden><img id="lightbox-img" src="" alt=""><div class="lightbox-hint">Нажмите, чтобы закрыть</div></div>
-
 <script>
 (function(){
   var LS_DONE='essence-gpt2-done', LS_STEP='essence-gpt2-step';
@@ -912,13 +905,6 @@ section.step{padding-bottom:96px}
     if(im.complete&&im.naturalWidth)im.classList.add('ready');
     else im.addEventListener('load',function(){im.classList.add('ready')});
   });
-
-  var lb=document.getElementById('lightbox'), lbImg=document.getElementById('lightbox-img');
-  document.querySelectorAll('.screen img').forEach(function(im){
-    im.addEventListener('click',function(){lbImg.src=im.src;lb.hidden=false;});
-  });
-  lb.addEventListener('click',function(){lb.hidden=true;lbImg.src='';});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')lb.hidden=true;});
 
   setStep(parseInt(localStorage.getItem(LS_STEP))||1,false);
   updateBar();
